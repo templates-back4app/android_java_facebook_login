@@ -45,7 +45,7 @@ dependencies {
  /data/app/com.demarkelabs.android_java_facebook_login-Cb6qCShELMTrvAVHqEzASg==/base.apk)*/
 
     // Don't forget to change the line below with the latest version of Parse Facebook Utils SDK for Android
-    implementation "com.github.parse-community:ParseFacebookUtils-Android:1.12.0"
+    implementation "com.github.parse-community:ParseFacebookUtils-Android:1.14.0"
 
-    implementation 'com.facebook.android:facebook-android-sdk:4.37.0'
+    implementation 'com.facebook.android:facebook-android-sdk:5.1.0'
 }

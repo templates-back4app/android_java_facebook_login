@@ -20,14 +20,15 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="serif"
             android:gravity="center"
-            android:text="Welcome to my App!"
+            android:text="@string/welcome"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="18sp" />
 
         <Button
             android:id="@+id/logout_button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:background="@color/com_facebook_blue"
@@ -36,6 +37,28 @@
             android:text="Logout via Facebook"
             android:textColor="@android:color/white" />
 
+        <Button
+            android:id="@+id/link_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@color/com_facebook_blue"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="LINK YOUR ACCOUNT TO FACEBOOK"
+            android:textColor="@android:color/white" />
+
+
+        <Button
+            android:id="@+id/unlink_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@color/com_facebook_blue"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="UNLINK YOUR ACCOUNT FROM FACEBOOK"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

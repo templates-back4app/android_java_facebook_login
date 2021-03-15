@@ -9,11 +9,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
+
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.parse.ParseUser;
 import com.parse.facebook.ParseFacebookUtils;
+
 import org.json.JSONException;
+
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -37,23 +40,23 @@ public class LoginActivity extends AppCompatActivity {
                 if (err != null) {
                     dlg.dismiss();
                     ParseUser.logOut();
-                    Log.e(TAG, "done: ", err);
+                    Log.e("FacebookLoginExample", "done: ", err);
                 }
                 if (user == null) {
                     dlg.dismiss();
                     ParseUser.logOut();
                     Toast.makeText(LoginActivity.this, "The user cancelled the Facebook login.", Toast.LENGTH_LONG).show();
-                    Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
+                    Log.d("FacebookLoginExample", "Uh oh. The user cancelled the Facebook login.");
                 } else if (user.isNew()) {
                     dlg.dismiss();
                     Toast.makeText(LoginActivity.this, "User signed up and logged in through Facebook.", Toast.LENGTH_LONG).show();
-                    Log.d("MyApp", "User signed up and logged in through Facebook!");
+                    Log.d("FacebookLoginExample", "User signed up and logged in through Facebook!");
                     getUserDetailFromFB();
                 } else {
                     dlg.dismiss();
                     Toast.makeText(LoginActivity.this, "User logged in through Facebook.", Toast.LENGTH_LONG).show();
-                    Log.d("MyApp", "User logged in through Facebook!");
-                    showAlert("Oh, you!", "Welcome back!");
+                    Log.d("FacebookLoginExample", "User logged in through Facebook!");
+                    showAlert("Oh, you!", "Welcome back!", ParseUser.getCurrentUser());
                 }
             });
         });
@@ -73,10 +76,10 @@ public class LoginActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             user.saveInBackground(e -> {
-                if (e == null)
-                    showAlert("First Time Login!", "Welcome!");
-                else
-                    showAlert("Error", e.getMessage());
+                if (e == null) {
+                    showAlert("First Time Login!", "Welcome!", user);
+                } else
+                    showAlert("Error", e.getMessage(), null);
             });
         });
 
@@ -86,13 +89,16 @@ public class LoginActivity extends AppCompatActivity {
         request.executeAsync();
     }
 
-    private void showAlert(String title, String message) {
+    private void showAlert(String title, String message, ParseUser user) {
         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this)
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton("OK", (dialog, which) -> {
                     dialog.cancel();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    if (user != null) {
+                        intent.putExtra("info",user.getUsername()+"\n\n\n"+ "Email: " + user.getEmail());
+                    }
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 });

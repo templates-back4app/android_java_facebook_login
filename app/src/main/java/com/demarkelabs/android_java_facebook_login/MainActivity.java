@@ -22,7 +22,9 @@ import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.facebook.ParseFacebookUtils;
@@ -46,16 +48,14 @@ public class MainActivity extends AppCompatActivity {
         final TextView textView = findViewById(R.id.textView);
 
         textView.setText(getString(R.string.welcome) + "\n");
-        Intent intent = getIntent();
-        if (intent != null) {
-            if (intent.getStringExtra("info") != null)
-                textView.setText("Welcome to My App\n" + getIntent().getStringExtra("info"));
-        }
+        textView.setText("Welcome to My App\n" + ParseUser.getCurrentUser().getUsername() + "\n\n\nEmail: " + ParseUser.getCurrentUser().getEmail());
+
+
         logout_button.setOnClickListener(v -> {
-            final ProgressDialog dlg = new ProgressDialog(MainActivity.this);
-            dlg.setTitle("Please, wait a moment.");
-            dlg.setMessage("Logging out...");
-            dlg.show();
+            final ProgressDialog dialog = new ProgressDialog(this);
+            dialog.setTitle("Please, wait a moment.");
+            dialog.setMessage("Logging out...");
+            dialog.show();
             LoginManager.getInstance().logOut();
             ParseUser.logOutInBackground(e -> {
                 if (e == null)
@@ -70,35 +70,35 @@ public class MainActivity extends AppCompatActivity {
             if (!ParseFacebookUtils.isLinked(ParseUser.getCurrentUser())) {
                 ParseFacebookUtils.linkWithReadPermissionsInBackground(ParseUser.getCurrentUser(), this, permissions, ex -> {
                     if (ParseFacebookUtils.isLinked(ParseUser.getCurrentUser())) {
-                        Toast.makeText(MainActivity.this, "Woohoo, user logged in with Facebook.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "Woohoo, user logged in with Facebook.", Toast.LENGTH_LONG).show();
                         Log.d("FacebookLoginExample", "Woohoo, user logged in with Facebook!");
                     }
                 });
             } else {
-                Toast.makeText(MainActivity.this, "You have already linked your account with Facebook.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "You have already linked your account with Facebook.", Toast.LENGTH_LONG).show();
             }
         });
 
         unlink_button.setOnClickListener(v -> {
             ParseFacebookUtils.unlinkInBackground(ParseUser.getCurrentUser(), ex -> {
                 if (ex == null) {
-                    Toast.makeText(MainActivity.this, "The user is no longer associated with their Facebook account.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "The user is no longer associated with their Facebook account.", Toast.LENGTH_LONG).show();
                     Log.d("MyApp", "The user is no longer associated with their Facebook account.");
                 } else {
-                    Toast.makeText(MainActivity.this, ex.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
         });
     }
 
     private void showAlert(String title, String message, boolean isOk) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this)
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton("OK", (dialog, which) -> {
                     dialog.cancel();
                     if (isOk) {
-                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        Intent intent = new Intent(this, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();

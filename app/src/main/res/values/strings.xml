@@ -2,13 +2,9 @@
     <string name="app_name">android_java_facebook_login</string>
     <string name="welcome">Welcome to My App!</string>
     <string name="logout">Log out</string>
-    <string name="facebook_app_id">263032518627402</string>
-    <string name="fb_login_protocol_scheme">fb263032518627402</string>
-<!--    <string name="facebook_app_id">1347953428894531</string>-->
-<!--    <string name="fb_login_protocol_scheme">fb1347953428894531</string>-->
+    <string name="facebook_app_id">Your Facebook app id here</string>
+    <string name="fb_login_protocol_scheme">Your Facebook login protocol scheme here</string>
     <string name="back4app_server_url">https://parseapi.back4app.com/</string>
-<!--    <string name="back4app_app_id">2vNlwOkQunS9rVbTdLB2MC6j3Q8CrU89trqu1O1J</string>-->
-<!--    <string name="back4app_client_key">StYRzCLoVAXsiQ6UU50oBRBqQY5eAzMp88cwbNtc</string>-->
-    <string name="back4app_app_id">cUO6giP0gjXQ1bS6a8WbpxSnBylDucBjidekwoU5</string>
-    <string name="back4app_client_key">AY9NeNlSzfPGtPNOJtouPI4uYZr0jI3q5plGiMu8</string>
+    <string name="back4app_app_id">Your Bac4App id here</string>
+    <string name="back4app_client_key">Your Back4App client key here</string>
 </resources>
